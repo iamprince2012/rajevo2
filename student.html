@@ -1,0 +1,46 @@
+<script>
+    function Student(name, roll_no, className, section, marks_of_5_subjects) {
+    this.name = name;
+    this.roll_no = roll_no;
+    this.class = className;
+    this.section = section;
+    this.marks_of_5_subjects = marks_of_5_subjects || {};
+
+    this.printTop3Subjects = function () {
+        const sortedSubjects = Object.keys(this.marks_of_5_subjects).sort((a, b) => this.marks_of_5_subjects[b] - this.marks_of_5_subjects[a]);
+        const top3Subjects = sortedSubjects.slice(0, 3);
+        console.log("Top 3 Subjects:", top3Subjects);
+    };
+    this.printReportCard = function () {
+        console.log("+---------------------+");
+        console.log("|      REPORT CARD    |");
+        console.log("+---------------------+");
+        console.log("| Name       : " + this.name);
+        console.log("| Roll no.   : " + this.roll_no);
+        console.log("| Class      : " + this.class);
+        console.log("| Section    : " + this.section);
+        console.log("+---------------------+");
+        let totalMarks = 0;
+        for (const subject in this.marks_of_5_subjects) {
+            const subjectName = subject.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()); 
+            const marks = this.marks_of_5_subjects[subject];
+            totalMarks += marks;
+            console.log("| " + subjectName.padEnd(11) + ": " + marks);
+        }
+        const percentage = (totalMarks / (Object.keys(this.marks_of_5_subjects).length * 100)) * 100;
+        console.log("| Percentage : " + percentage.toFixed(1) + "%");
+        console.log("+---------------------+");
+    };
+}
+
+var student1 = new Student("Huzaifa", 16, "X", "A", {
+    science: 73,
+    math: 75,
+    social_science: 79,
+    english: 80,
+    hindi: 67
+});
+
+student1.printTop3Subjects();
+student1.printReportCard();
+</script>
